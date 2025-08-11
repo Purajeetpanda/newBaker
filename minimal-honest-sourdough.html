@@ -1,0 +1,226 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Minimal, Honest Sourdough (From-Scratch, No Commercial Yeast)</title>
+  <style>
+    :root {
+      --bg: #0b0f14;
+      --card: #131a22;
+      --ink: #e8eef5;
+      --muted: #98a6b3;
+      --accent: #33d0a0;
+      --accent-2: #88e0c7;
+      --warn: #ffcc66;
+      --danger: #ff6b6b;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      background: linear-gradient(180deg, #0b0f14 0%, #0e141b 100%);
+      color: var(--ink);
+      line-height: 1.6;
+    }
+    a { color: var(--accent-2); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    header {
+      position: sticky; top: 0;
+      backdrop-filter: blur(8px);
+      background: rgba(11,15,20,0.7);
+      border-bottom: 1px solid #1b2430;
+      z-index: 10;
+    }
+    .container { max-width: 1000px; margin: 0 auto; padding: 24px; }
+    .hero {
+      display: grid; grid-template-columns: 1.2fr 1fr; gap: 24px; align-items: center;
+      padding: 28px 0 10px 0;
+    }
+    .badge { display: inline-block; padding: 4px 10px; border: 1px solid #224; border-radius: 999px; color: var(--muted); }
+    h1 { font-size: 2.2rem; line-height: 1.2; margin: 10px 0 8px; }
+    p.lead { font-size: 1.05rem; color: var(--muted); margin: 0 0 6px; }
+    .card {
+      background: var(--card); border: 1px solid #1b2430; border-radius: 16px;
+      padding: 18px; box-shadow: 0 6px 24px rgba(0,0,0,0.25);
+    }
+    h2 { margin-top: 34px; font-size: 1.5rem; }
+    h3 { margin-top: 22px; font-size: 1.2rem; }
+    .grid { display: grid; gap: 16px; }
+    .grid-2 { grid-template-columns: repeat(2, minmax(0,1fr)); }
+    .note { font-size: 0.95rem; color: var(--muted); }
+    .list-clean { margin: 0; padding: 0 0 0 18px; }
+    .kbd {
+      background: #11171f; border: 1px solid #1f2a36; padding: 2px 6px; border-radius: 6px; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+    }
+    .warning { background: #1c1508; border: 1px solid #3a2b12; color: #ffd28a; }
+    .ref { font-size: 0.95rem; color: var(--muted); }
+    .table { width: 100%; border-collapse: collapse; }
+    .table th, .table td { border-bottom: 1px solid #1b2430; padding: 10px; text-align: left; vertical-align: top; }
+    .chips { display:flex; gap:8px; flex-wrap:wrap; }
+    .chip { border:1px solid #254; color:#92f0d3; padding:4px 10px; border-radius:999px; font-size:0.85rem;}
+    .footer { color: var(--muted); font-size: 0.9rem; padding: 30px 0 60px; }
+    @media (max-width: 860px) { .hero { grid-template-columns: 1fr; } .grid-2 { grid-template-columns: 1fr; } }
+    .toc a { display:block; padding:8px 10px; border-radius:10px; border:1px solid #1b2430; margin:6px 0; background:#0e151d; }
+    .toc a:hover { background:#111b25; }
+    .callout { border-left: 3px solid var(--accent); padding-left: 12px; margin: 12px 0; }
+    .code { background:#0f1720; border:1px solid #223; padding:12px; border-radius:10px; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; overflow:auto; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container" style="padding: 14px 24px;">
+      <strong>Minimal, Honest Sourdough</strong> — from scratch · no commercial yeast · safety‑minded
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div>
+        <span class="badge">From‑scratch • 2 ingredients • Dutch‑oven method</span>
+        <h1>Most Delicious Sourdough at Home (Zero Commercial Yeast)</h1>
+        <p class="lead">A precise, health‑safe process using only flour, water, time, and household tools. Includes utensil specifics (e.g., Dutch‑oven lid timing), oven mode tips (conventional vs fan‑forced), starter storage, aromas, and doneness cues.</p>
+        <div class="chips">
+          <span class="chip">100% natural fermentation</span>
+          <span class="chip">Beginner‑friendly</span>
+          <span class="chip">Evidence‑informed</span>
+          <span class="chip">Melbourne‑kitchen tested</span>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Quick Specs</h3>
+        <table class="table">
+          <tr><th>Ingredients</th><td>Flour + Water + Salt (for dough)</td></tr>
+          <tr><th>Equipment</th><td>Kitchen scale, glass jar, spoon/spatula, bowl, bench scraper (opt.), banneton/tea‑towel, razor/lame, Dutch oven with lid, oven mitts</td></tr>
+          <tr><th>Hands‑on Time</th><td>Starter 5–7 days · Dough 30–40 min spread out</td></tr>
+          <tr><th>Fermentation</th><td>Bulk 3–6 h (23–26 °C) · Cold proof 8–16 h (3–5 °C)</td></tr>
+          <tr><th>Bake</th><td>Preheat 250 °C · 20 min lid‑on, then 20–25 min lid‑off @ 230 °C</td></tr>
+        </table>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Table of Contents</h2>
+      <div class="toc grid grid-2">
+        <div>
+          <a href="#ingredients">Ingredients & Water</a>
+          <a href="#tools">Utensils & Why They Matter</a>
+          <a href="#starter">Make a Wild Starter (Days 1–7)</a>
+          <a href="#aroma">Starter Aromas: What “Good” Smells Like</a>
+        </div>
+        <div>
+          <a href="#dough">Dough: Mix → Bulk → Shape → Proof</a>
+          <a href="#bake">Bake: Dutch Oven (Lid On → Off) & Oven Modes</a>
+          <a href="#storage">Starter Storage & Maintenance</a>
+          <a href="#refs">Trusted References</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="ingredients" class="card">
+      <h2>Ingredients & Water</h2>
+      <ul class="list-clean">
+        <li><strong>Flour:</strong> Whole‑grain rye or whole‑wheat helps kickstart a robust starter (more natural microbes & enzymes). Switch to bread flour for baking if you want a lighter crumb.</li>
+        <li><strong>Water:</strong> Use filtered or de‑chlorinated water. If tap is chlorinated, leave it uncovered overnight or boil then cool.</li>
+        <li><strong>Salt (for dough only):</strong> 2% of flour weight (e.g., 8 g per 400 g flour) for flavor and gluten strength.</li>
+      </ul>
+      <p class="note">We use a <span class="kbd">1:1</span> flour:water ratio by weight (aka 100% hydration) for the starter. For a reliable loaf: <span class="kbd">70%–75% hydration</span> dough is friendly to handle.</p>
+    </section>
+
+    <section id="tools" class="card">
+      <h2>Utensils & Why They Matter</h2>
+      <ul class="list-clean">
+        <li><strong>Digital scale:</strong> Precision matters more than any single “trick.”</li>
+        <li><strong>Glass jar (smooth‑sided) + breathable cover:</strong> Lets CO₂ escape; easy to see rise & bubbles. Avoid air‑tight seals during active fermentation.</li>
+        <li><strong>Sturdy mixing bowl & spatula/spoon:</strong> For clean mixing; a bench scraper helps handle sticky dough.</li>
+        <li><strong>Banneton or bowl lined with a floured tea towel:</strong> Supports shape during final proof.</li>
+        <li><strong>Razor/lame:</strong> Score to control expansion (oven spring).</li>
+        <li><strong>Heavy Dutch oven with tight lid (22–26 cm):</strong> Traps steam for glossy crust. Preheat it.</li>
+        <li><strong>Oven mitts + safe surface:</strong> Cast iron is extremely hot—work deliberately.</li>
+      </ul>
+      <div class="callout"><strong>Why lid on/off?</strong> The lid traps steam for the first phase, keeping the crust flexible so the loaf can expand. Removing the lid lets the crust dry and brown deeply.</div>
+    </section>
+
+    <section id="starter" class="card">
+      <h2>Make a Wild Starter (Days 1–7)</h2>
+      <ol class="list-clean">
+        <li><strong>Day 1:</strong> In a clean jar, mix <span class="kbd">50 g whole‑grain flour + 50 g water</span> (room‑temp, non‑chlorinated). Stir thoroughly. Cover loosely. Keep at <span class="kbd">23–26 °C</span>.</li>
+        <li><strong>Days 2–3:</strong> Every 24 h (or 12 h if warm), discard about half, then feed with equal weights flour+water (e.g., 50 g + 50 g). Expect small bubbles and a mild tangy aroma.</li>
+        <li><strong>Days 4–7:</strong> Continue discard/feed. Starter should <em>double in 6–12 h</em> after a feeding. When it consistently doubles and smells pleasantly tangy, it’s ready.</li>
+        <li><strong>Readiness checks:</strong> Bubbly, domed surface; webby interior; passes “float test” (a spoonful floats in room‑temp water). If it sinks but looks active, give it 1–2 more vigorous feeds.</li>
+      </ol>
+      <div class="warning card">
+        <strong>Safety:</strong> If you see colored mold, fuzzy growth, or smell anything rotten/putrid (not just sour), discard the starter, wash with hot soapy water, and begin again with clean tools.
+      </div>
+    </section>
+
+    <section id="aroma" class="card">
+      <h2>Starter Aromas: What “Good” Smells Like</h2>
+      <ul class="list-clean">
+        <li><strong>Healthy:</strong> pleasantly sour, yogurt‑like, fruity, or mildly “boozy.”</li>
+        <li><strong>Needs food:</strong> more acidic/vinegary, solvent‑like notes — feed and it should sweeten.</li>
+        <li><strong>Unhealthy (discard):</strong> rotten, putrid, musty, or visible mold of any color.</li>
+      </ul>
+    </section>
+
+    <section id="dough" class="card">
+      <h2>Dough: Mix → Bulk → Shape → Proof</h2>
+      <ol class="list-clean">
+        <li><strong>Leaven (optional but helpful for timing):</strong> 1–2 tbsp ripe starter + 50 g flour + 50 g water. Ferment until doubled (3–6 h at 23–26 °C).</li>
+        <li><strong>Mix dough (example loaf):</strong>
+          <div class="code">
+            Flour 400 g (bread or mix of bread + 10–20% whole‑grain)<br/>
+            Water 280–300 g (70–75% hydration)<br/>
+            Salt 8 g (2%)<br/>
+            Ripe starter 80–100 g (20–25% of flour weight)
+          </div>
+          Mix to shaggy. Rest 20–30 min (autolyse). Add salt (if held back) and knead lightly or perform 3–4 stretch‑and‑fold sets every 20–30 min.
+        </li>
+        <li><strong>Bulk ferment:</strong> 3–6 h at 23–26 °C until dough is ~50% larger, jiggly, and aerated. Avoid over‑proofing (dough becomes weak/collapses).</li>
+        <li><strong>Pre‑shape → Rest 15–20 min → Final shape.</strong> Place seam‑side up in a generously floured banneton/tea‑towel‑lined bowl.</li>
+        <li><strong>Cold proof:</strong> Cover and refrigerate 8–16 h at 3–5 °C for deeper flavor and easier scoring.</li>
+      </ol>
+    </section>
+
+    <section id="bake" class="card">
+      <h2>Bake: Dutch Oven & Oven Modes</h2>
+      <ol class="list-clean">
+        <li><strong>Preheat:</strong> Place Dutch oven with lid inside the oven. Preheat to <span class="kbd">250 °C</span> for at least 30–45 min.</li>
+        <li><strong>Load & steam phase:</strong> Invert cold‑proofed dough onto parchment. Score. Carefully lower into the hot Dutch oven. <strong>Lid on</strong>, bake <span class="kbd">20 minutes</span>.</li>
+        <li><strong>Dry & color phase:</strong> Reduce to <span class="kbd">230 °C</span>. Remove the lid and bake <span class="kbd">20–25 minutes</span>, until crust is deep golden and the loaf sounds hollow when tapped. Internal temp target: ~<span class="kbd">96–99 °C</span>.</li>
+        <li><strong>Conventional vs fan‑forced (convection):</strong> Both work. Convection runs hotter/more efficient; if using fan‑forced, consider reducing set temp by ~10–15 °C or watch for faster browning. The closed Dutch oven moderates airflow differences.</li>
+        <li><strong>Cool completely:</strong> Let cool on a rack at least 90 minutes before slicing to set the crumb.</li>
+      </ol>
+      <div class="callout"><strong>Crust & crumb tips:</strong> For thinner crust, vent the oven door slightly for the last 5 minutes. For more open crumb, avoid adding extra flour during shaping and proof fully but not past collapse.</div>
+    </section>
+
+    <section id="storage" class="card">
+      <h2>Starter Storage & Maintenance</h2>
+      <ul class="list-clean">
+        <li><strong>Frequent baking (counter‑kept):</strong> Keep at room temp and feed daily (e.g., 1:1:1 by weight starter:flour:water). Aim for peak activity to bake.</li>
+        <li><strong>Occasional baking (fridge):</strong> Store covered in the refrigerator. Feed weekly. Before baking, give 1–2 room‑temp feeds spaced 8–12 h apart until it doubles reliably.</li>
+        <li><strong>Best place to keep it:</strong> A stable‑temperature spot away from direct sunlight; 23–26 °C is the sweet zone.</li>
+        <li><strong>Travel/backup:</strong> Dry some starter thinly on parchment; once brittle, crumble into a jar. To revive, soak and feed over 2–3 days.</li>
+      </ul>
+    </section>
+
+    <section id="refs" class="card">
+      <h2>Trusted References (for further reading)</h2>
+      <p class="ref">These are widely respected, practical sources on natural sourdough fermentation and Dutch‑oven baking:</p>
+      <ul class="list-clean ref">
+        <li>King Arthur Baking — Sourdough Starter & Bread Guides: <a href="https://www.kingarthurbaking.com/learn/guides/sourdough" target="_blank" rel="noopener">kingarthurbaking.com</a></li>
+        <li>The Perfect Loaf — In‑depth, measurement‑first sourdough methods: <a href="https://www.theperfectloaf.com/" target="_blank" rel="noopener">theperfectloaf.com</a></li>
+        <li>Serious Eats — Science‑minded bread technique & Dutch‑oven baking: <a href="https://www.seriouseats.com/" target="_blank" rel="noopener">seriouseats.com</a></li>
+        <li>USDA Food Safety — Home fermentation hygiene basics: <a href="https://www.fsis.usda.gov/food-safety" target="_blank" rel="noopener">fsis.usda.gov</a></li>
+        <li>King Arthur — Water, flour types, and hydration primers: <a href="https://www.kingarthurbaking.com/blog" target="_blank" rel="noopener">KA Blog</a></li>
+      </ul>
+      <p class="note">This page avoids any commercial yeast or added laboratory cultures; fermentation relies on wild yeast and lactic acid bacteria naturally present in flour and environment.</p>
+    </section>
+
+    <section class="footer">
+      <p>Made for home bakers who want a reliable, minimal‑ingredient method with clear safety guidance. © 2025</p>
+    </section>
+  </main>
+</body>
+</html>
