@@ -1,6 +1,5 @@
 from pathlib import Path
 
-# Rebuild HTML so the two problematic images are ALWAYS local & randomly chosen
 html = r"""
 <!DOCTYPE html>
 <html lang="en">
@@ -8,7 +7,7 @@ html = r"""
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Minimal, Honest Sourdough — Rustic Edition (Local Images)</title>
-  <meta name="description" content="From-scratch sourdough with clear utensil guidance, oven mode tips, and robust image fallbacks using locally provided rustic bread photos." />
+  <meta name="description" content="From-scratch sourdough with utensil guidance, oven mode tips, and robust images using only your local rustic bread photos." />
   <style>
     :root {
       --bg: #0b0f14;
@@ -111,7 +110,7 @@ html = r"""
         </div>
       </div>
       <figure class="hero-img">
-        <!-- HERO IMAGE will be set to a random LOCAL image on load -->
+        <!-- HERO: random local image on load -->
         <img id="heroLocal" alt="Rustic bread hero" loading="eager" decoding="async" />
         <figcaption>Local rustic image — guaranteed to load</figcaption>
       </figure>
@@ -160,7 +159,7 @@ html = r"""
         <li><strong>Water:</strong> Use filtered or de-chlorinated water. If tap is chlorinated, leave it uncovered overnight or boil then cool.</li>
         <li><strong>Salt (for dough only):</strong> 2% of flour weight (e.g., 8 g per 400 g flour) for flavor and gluten strength.</li>
       </ul>
-      <p class="note">We use a <span class="kbd">1:1</span> flour:water ratio by weight (aka 100% hydration) for the starter. For a reliable loaf: <span class="kbd">70%–75% hydration</span> dough is friendly to handle.</p>
+      <p class="note">Starter: <span class="kbd">1:1</span> flour:water by weight. Dough: <span class="kbd">70%–75%</span> hydration is friendly to handle.</p>
     </section>
 
     <section id="tools" class="card">
@@ -233,22 +232,17 @@ html = r"""
     <section id="gallery" class="card" aria-labelledby="gallery-heading">
       <h2 id="gallery-heading">Rustic Gallery</h2>
       <div class="gallery" role="list">
-        <!-- First gallery image remains external with fallback -->
         <figure role="listitem">
-          <img class="watch" referrerpolicy="no-referrer" alt="Rustic crumb close-up"
-               loading="lazy" decoding="async"
-               src="https://images.unsplash.com/photo-1549931319-a545dcf3bc73?q=80&w=800&auto=format&fit=crop">
+          <img id="g1" alt="Local rustic bread 1" loading="lazy" decoding="async">
         </figure>
-        <!-- Second gallery is FIXED to a random LOCAL image on load -->
         <figure role="listitem">
-          <img id="galleryLocal" alt="Local rustic bread" loading="lazy" decoding="async">
+          <img id="g2" alt="Local rustic bread 2" loading="lazy" decoding="async">
         </figure>
-        <!-- Third gallery image removed from external source; also LOCAL random -->
         <figure role="listitem">
-          <img id="galleryLocal2" alt="Local rustic bread 2" loading="lazy" decoding="async">
+          <img id="g3" alt="Local rustic bread 3" loading="lazy" decoding="async">
         </figure>
       </div>
-      <p class="credit">Hero and one gallery image are now always local (randomly chosen) to avoid external failures. Any remaining external images have automatic local fallbacks.</p>
+      <p class="credit">All images are local, randomly picked on load — no external dependencies.</p>
     </section>
 
     <section id="refs" class="card">
@@ -268,47 +262,31 @@ html = r"""
   </main>
 
   <script>
-    // Local image pool
+    // Use ONLY local images (place these files next to this HTML)
     const LOCAL_IMAGES = [
       "A_photograph_presents_a_close-up_of_three_rustic_s.png",
       "A_photograph_presents_a_close-up_of_three_rustic_r.png",
       "A_photograph_showcases_a_close-up_of_a_rustic_pist.png"
     ];
-
-    function pickLocal(except=[]) {
-      const pool = LOCAL_IMAGES.filter(p => !except.includes(p));
-      return pool[Math.floor(Math.random() * pool.length)];
+    function shuffle(arr) {
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
     }
-
-    // 1) Ensure HERO is always a random local
-    (function setLocalHero(){
-      const img = document.getElementById('heroLocal');
-      img.src = pickLocal(); // no exceptions
-    })();
-
-    // 2) Set two gallery images to random locals (different if possible)
-    (function setLocalGallery(){
-      const g1 = document.getElementById('galleryLocal');
-      const choice1 = pickLocal();
-      g1.src = choice1;
-
-      const g2 = document.getElementById('galleryLocal2');
-      const choice2 = pickLocal([choice1]);
-      g2.src = choice2;
-    })();
-
-    // 3) Fallback: any remaining external images that fail will swap to a local random image
-    (function setupExternalFallbacks(){
-      function swapRandom(img){ img.src = pickLocal(); }
-      document.querySelectorAll('img.watch').forEach(function(img){
-        img.addEventListener('error', function(){ swapRandom(img); }, { once: true });
-      });
+    (function initImages(){
+      const picks = shuffle(LOCAL_IMAGES.slice());
+      document.getElementById('heroLocal').src = picks[0];
+      document.getElementById('g1').src = picks[0];
+      document.getElementById('g2').src = picks[1 % picks.length];
+      document.getElementById('g3').src = picks[2 % picks.length];
     })();
   </script>
 </body>
 </html>
 """
 
-out = Path("/mnt/data/sourdough-rustic-local-images.html")
+out = Path("/mnt/data/sourdough-rustic-local-only.html")
 out.write_text(html, encoding="utf-8")
 str(out)
