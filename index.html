@@ -1,3 +1,5 @@
+# Create a new HTML with "holy rustic loaves" themed images, robust multi-source fallbacks,
+# no page reloads, and fully responsive layout.
 from pathlib import Path
 
 html = r"""
@@ -6,8 +8,8 @@ html = r"""
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Minimal, Honest Sourdough (From-Scratch, No Commercial Yeast)</title>
-  <meta name="description" content="A precise, health-safe sourdough method using only flour, water, salt, and time. Fully responsive with utensil specifics, oven mode tips, and starter care." />
+  <title>Minimal, Honest Sourdough — Holy Rustic Loaves Edition</title>
+  <meta name="description" content="A precise, health-safe sourdough method using only flour, water, salt, and time. Holy rustic loaves gallery. Fully responsive and image-robust (no reloads)." />
   <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
   <style>
     :root {
@@ -113,16 +115,20 @@ html = r"""
       </div>
       <figure class="hero-img">
         <img
-          src="https://images.unsplash.com/photo-1600326145359-9bb9282b3d48?q=80&w=1600&auto=format&fit=crop"
-          alt="Golden, crusty sourdough boule on a wooden board" loading="eager" decoding="async"
-          srcset="
-            https://images.unsplash.com/photo-1600326145359-9bb9282b3d48?q=80&w=640&auto=format&fit=crop 640w,
-            https://images.unsplash.com/photo-1600326145359-9bb9282b3d48?q=80&w=1024&auto=format&fit=crop 1024w,
-            https://images.unsplash.com/photo-1600326145359-9bb9282b3d48?q=80&w=1600&auto=format&fit=crop 1600w
-          "
+          class="swap"
+          alt="Holy rustic sourdough loaf with blistered crust"
+          loading="eager" decoding="async"
+          referrerpolicy="no-referrer"
+          data-srcs='[
+            "https://images.unsplash.com/photo-1525253013412-55c1a69a5738?q=80&w=1600&auto=format&fit=crop",
+            "https://images.unsplash.com/photo-1606819893249-a1a19b3485ff?q=80&w=1600&auto=format&fit=crop",
+            "https://images.unsplash.com/photo-1549931319-a545dcf3bc73?q=80&w=1600&auto=format&fit=crop"
+          ]'
+          src="https://images.unsplash.com/photo-1525253013412-55c1a69a5738?q=80&w=1600&auto=format&fit=crop"
+          srcset=""
           sizes="(max-width: 980px) 100vw, 45vw"
         />
-        <figcaption>Freshly baked sourdough with blistered crust • Photo via Unsplash</figcaption>
+        <figcaption>Holy rustic loaf • blistered ear & caramel crust • Unsplash</figcaption>
       </figure>
     </section>
 
@@ -138,7 +144,7 @@ html = r"""
         <div>
           <a href="#dough">Dough: Mix → Bulk → Shape → Proof</a>
           <a href="#bake">Bake: Dutch Oven (Lid On → Off) & Oven Modes</a>
-          <a href="#gallery">Sourdough Gallery (Visuals)</a>
+          <a href="#gallery">Holy Rustic Gallery</a>
           <a href="#refs">Trusted References</a>
         </div>
       </div>
@@ -154,7 +160,7 @@ html = r"""
           <tbody>
             <tr><th scope="row">Ingredients</th><td>Flour + Water + Salt (for dough)</td></tr>
             <tr><th scope="row">Equipment</th><td>Kitchen scale, glass jar, spoon/spatula, bowl, bench scraper (opt.), banneton/tea-towel, razor/lame, Dutch oven with lid, oven mitts</td></tr>
-            <tr><th scope="row">Hands-on Time</</td></tr>
+            <tr><th scope="row">Hands-on Time</th><td>Starter 5–7 days · Dough 30–40 min spread out</td></tr>
             <tr><th scope="row">Fermentation</th><td>Bulk 3–6 h (23–26 °C) · Cold proof 8–16 h (3–5 °C)</td></tr>
             <tr><th scope="row">Bake</th><td>Preheat 250 °C · 20 min lid-on, then 20–25 min lid-off @ 230 °C</td></tr>
           </tbody>
@@ -240,19 +246,37 @@ html = r"""
     </section>
 
     <section id="gallery" class="card" aria-labelledby="gallery-heading">
-      <h2 id="gallery-heading">Sourdough Gallery (Visuals)</h2>
+      <h2 id="gallery-heading">Holy Rustic Gallery</h2>
       <div class="gallery" role="list">
         <figure role="listitem">
-          <img src="https://images.unsplash.com/photo-1549931319-a545dcf3bc73?q=80&w=800&auto=format&fit=crop" alt="Close-up of sourdough crumb with open structure" loading="lazy" decoding="async">
+          <img class="swap" referrerpolicy="no-referrer" alt="Rustic sourdough crumb close-up"
+               loading="lazy" decoding="async"
+               data-srcs='[
+                 "https://images.unsplash.com/photo-1519096845289-958e5f04ef1b?q=80&w=800&auto=format&fit=crop",
+                 "https://images.unsplash.com/photo-1600326145359-9bb9282b3d48?q=80&w=800&auto=format&fit=crop"
+               ]'
+               src="https://images.unsplash.com/photo-1519096845289-958e5f04ef1b?q=80&w=800&auto=format&fit=crop">
         </figure>
         <figure role="listitem">
-          <img src="https://images.unsplash.com/photo-1589367920969-ab8e050bbb04?q=80&w=800&auto=format&fit=crop" alt="Round sourdough loaf with decorative scoring" loading="lazy" decoding="async">
+          <img class="swap" referrerpolicy="no-referrer" alt="Round loaf with ornate scoring"
+               loading="lazy" decoding="async"
+               data-srcs='[
+                 "https://images.unsplash.com/photo-1555529771-35a38b5a3c92?q=80&w=800&auto=format&fit=crop",
+                 "https://images.unsplash.com/photo-1589367920969-ab8e050bbb04?q=80&w=800&auto=format&fit=crop"
+               ]'
+               src="https://images.unsplash.com/photo-1555529771-35a38b5a3c92?q=80&w=800&auto=format&fit=crop">
         </figure>
         <figure role="listitem">
-          <img src="https://images.unsplash.com/photo-1514516870926-2059896c1c78?q=80&w=800&auto=format&fit=crop" alt="Rustic sourdough loaf cooling on a rack" loading="lazy" decoding="async">
+          <img class="swap" referrerpolicy="no-referrer" alt="Rustic loaf cooling on wire rack"
+               loading="lazy" decoding="async"
+               data-srcs='[
+                 "https://images.unsplash.com/photo-1514516870926-2059896c1c78?q=80&w=800&auto=format&fit=crop",
+                 "https://images.unsplash.com/photo-1466637574441-749b8f19452f?q=80&w=800&auto=format&fit=crop"
+               ]'
+               src="https://images.unsplash.com/photo-1514516870926-2059896c1c78?q=80&w=800&auto=format&fit=crop">
         </figure>
       </div>
-      <p class="credit">Photos via Unsplash. Images load responsively and are lazy-loaded for performance.</p>
+      <p class="credit">Photos via Unsplash. Images auto-swap on error without reloading the page.</p>
     </section>
 
     <section id="refs" class="card">
@@ -272,9 +296,47 @@ html = r"""
       <p>Made for home bakers who want a reliable, minimal-ingredient method with clear safety guidance. © 2025</p>
     </section>
   </main>
+
+  <script>
+    // Fallback image logic: cycles through data-srcs alternatives; uses inline SVG as last resort.
+    (function(){
+      const fallbackSVG = "data:image/svg+xml;utf8," +
+        "<svg xmlns='http://www.w3.org/2000/svg' width='800' height='600'>" +
+        "<defs><linearGradient id='g' x1='0' x2='1' y1='0' y2='1'>" +
+        "<stop stop-color='%230b0f14'/><stop offset='1' stop-color='%23121821'/></linearGradient></defs>" +
+        "<rect width='100%' height='100%' fill='url(%23g)'/>" +
+        "<g fill='%239fb1c2' font-family='Arial,sans-serif' font-size='24'>" +
+        "<text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle'>Rustic loaf image unavailable</text>" +
+        "</g></svg>";
+
+      function swapToNext(img){
+        try {
+          const list = JSON.parse(img.getAttribute('data-srcs') || "[]");
+          const current = img.getAttribute('src');
+          const idx = Math.max(0, list.indexOf(current));
+          const next = list[idx + 1];
+          if (next) {
+            img.removeAttribute('srcset');
+            img.src = next;
+          } else {
+            img.src = fallbackSVG;
+          }
+        } catch(e) {
+          img.src = fallbackSVG;
+        }
+      }
+
+      document.querySelectorAll('img.swap').forEach(function(img){
+        img.setAttribute('crossorigin','anonymous');
+        img.setAttribute('referrerpolicy','no-referrer');
+        img.addEventListener('error', function(){ swapToNext(img); });
+      });
+    })();
+  </script>
 </body>
 </html>
 """
-out = Path("/mnt/data/minimal-honest-sourdough-responsive.html")
+
+out = Path("/mnt/data/minimal-honest-sourdough-rustic.html")
 out.write_text(html, encoding="utf-8")
 str(out)
