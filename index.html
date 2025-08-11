@@ -1,12 +1,13 @@
 from pathlib import Path
 
+# Rebuild HTML so the two problematic images are ALWAYS local & randomly chosen
 html = r"""
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Minimal, Honest Sourdough — Rustic Edition</title>
+  <title>Minimal, Honest Sourdough — Rustic Edition (Local Images)</title>
   <meta name="description" content="From-scratch sourdough with clear utensil guidance, oven mode tips, and robust image fallbacks using locally provided rustic bread photos." />
   <style>
     :root {
@@ -110,13 +111,9 @@ html = r"""
         </div>
       </div>
       <figure class="hero-img">
-        <img
-          class="watch"
-          src="https://images.unsplash.com/photo-1600326145359-9bb9282b3d48?q=80&w=1600&auto=format&fit=crop"
-          alt="Crusty rustic sourdough loaf on wooden board"
-          loading="eager" decoding="async" referrerpolicy="no-referrer"
-        />
-        <figcaption>Freshly baked sourdough with blistered crust • Auto-fallback ready</figcaption>
+        <!-- HERO IMAGE will be set to a random LOCAL image on load -->
+        <img id="heroLocal" alt="Rustic bread hero" loading="eager" decoding="async" />
+        <figcaption>Local rustic image — guaranteed to load</figcaption>
       </figure>
     </section>
 
@@ -236,23 +233,22 @@ html = r"""
     <section id="gallery" class="card" aria-labelledby="gallery-heading">
       <h2 id="gallery-heading">Rustic Gallery</h2>
       <div class="gallery" role="list">
+        <!-- First gallery image remains external with fallback -->
         <figure role="listitem">
           <img class="watch" referrerpolicy="no-referrer" alt="Rustic crumb close-up"
                loading="lazy" decoding="async"
                src="https://images.unsplash.com/photo-1549931319-a545dcf3bc73?q=80&w=800&auto=format&fit=crop">
         </figure>
+        <!-- Second gallery is FIXED to a random LOCAL image on load -->
         <figure role="listitem">
-          <img class="watch" referrerpolicy="no-referrer" alt="Decorative scoring"
-               loading="lazy" decoding="async"
-               src="https://images.unsplash.com/photo-1589367920969-ab8e050bbb04?q=80&w=800&auto=format&fit=crop">
+          <img id="galleryLocal" alt="Local rustic bread" loading="lazy" decoding="async">
         </figure>
+        <!-- Third gallery image removed from external source; also LOCAL random -->
         <figure role="listitem">
-          <img class="watch" referrerpolicy="no-referrer" alt="Loaf cooling on rack"
-               loading="lazy" decoding="async"
-               src="https://images.unsplash.com/photo-1514516870926-2059896c1c78?q=80&w=800&auto=format&fit=crop">
+          <img id="galleryLocal2" alt="Local rustic bread 2" loading="lazy" decoding="async">
         </figure>
       </div>
-      <p class="credit">If any image fails, this page will automatically substitute one of your three locally provided rustic bread photos (randomly chosen).</p>
+      <p class="credit">Hero and one gallery image are now always local (randomly chosen) to avoid external failures. Any remaining external images have automatic local fallbacks.</p>
     </section>
 
     <section id="refs" class="card">
@@ -272,18 +268,38 @@ html = r"""
   </main>
 
   <script>
-    // Random fallback to local images if any <img> fails to load
-    (function(){
-      const fallbacks = [
-        "A_photograph_presents_a_close-up_of_three_rustic_s.png",
-        "A_photograph_presents_a_close-up_of_three_rustic_r.png",
-        "A_photograph_showcases_a_close-up_of_a_rustic_pist.png"
-      ];
-      function swapRandom(img){
-        const pick = fallbacks[Math.floor(Math.random() * fallbacks.length)];
-        img.removeAttribute('srcset');
-        img.src = pick;
-      }
+    // Local image pool
+    const LOCAL_IMAGES = [
+      "A_photograph_presents_a_close-up_of_three_rustic_s.png",
+      "A_photograph_presents_a_close-up_of_three_rustic_r.png",
+      "A_photograph_showcases_a_close-up_of_a_rustic_pist.png"
+    ];
+
+    function pickLocal(except=[]) {
+      const pool = LOCAL_IMAGES.filter(p => !except.includes(p));
+      return pool[Math.floor(Math.random() * pool.length)];
+    }
+
+    // 1) Ensure HERO is always a random local
+    (function setLocalHero(){
+      const img = document.getElementById('heroLocal');
+      img.src = pickLocal(); // no exceptions
+    })();
+
+    // 2) Set two gallery images to random locals (different if possible)
+    (function setLocalGallery(){
+      const g1 = document.getElementById('galleryLocal');
+      const choice1 = pickLocal();
+      g1.src = choice1;
+
+      const g2 = document.getElementById('galleryLocal2');
+      const choice2 = pickLocal([choice1]);
+      g2.src = choice2;
+    })();
+
+    // 3) Fallback: any remaining external images that fail will swap to a local random image
+    (function setupExternalFallbacks(){
+      function swapRandom(img){ img.src = pickLocal(); }
       document.querySelectorAll('img.watch').forEach(function(img){
         img.addEventListener('error', function(){ swapRandom(img); }, { once: true });
       });
@@ -293,6 +309,6 @@ html = r"""
 </html>
 """
 
-out = Path("/mnt/data/sourdough-rustic-random-fallbacks.html")
+out = Path("/mnt/data/sourdough-rustic-local-images.html")
 out.write_text(html, encoding="utf-8")
 str(out)
