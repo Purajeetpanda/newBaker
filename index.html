@@ -1,5 +1,3 @@
-# Create a new HTML with "holy rustic loaves" themed images, robust multi-source fallbacks,
-# no page reloads, and fully responsive layout.
 from pathlib import Path
 
 html = r"""
@@ -8,9 +6,8 @@ html = r"""
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Minimal, Honest Sourdough — Holy Rustic Loaves Edition</title>
-  <meta name="description" content="A precise, health-safe sourdough method using only flour, water, salt, and time. Holy rustic loaves gallery. Fully responsive and image-robust (no reloads)." />
-  <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
+  <title>Minimal, Honest Sourdough — Rustic Edition</title>
+  <meta name="description" content="From-scratch sourdough with clear utensil guidance, oven mode tips, and robust image fallbacks using locally provided rustic bread photos." />
   <style>
     :root {
       --bg: #0b0f14;
@@ -88,7 +85,6 @@ html = r"""
     .gallery figure { border-radius: 14px; overflow: hidden; margin: 0; border:1px solid var(--line); aspect-ratio: 1/1; }
     .gallery img { width: 100%; height: 100%; object-fit: cover; display:block; }
     .credit { font-size: .8rem; color: var(--muted); text-align: right; }
-    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; white-space: nowrap; }
   </style>
 </head>
 <body>
@@ -105,7 +101,7 @@ html = r"""
           <span>From-scratch</span><span>2 ingredients</span><span>Dutch-oven method</span>
         </span>
         <h1>Most Delicious Sourdough at Home (Zero Commercial Yeast)</h1>
-        <p class="lead">A precise, health-safe process using only flour, water, time, and household tools. This responsive page includes utensil specifics (e.g., Dutch-oven lid timing), oven mode tips (conventional vs fan-forced), starter storage, aromas, and doneness cues.</p>
+        <p class="lead">A precise, health-safe process using only flour, water, time, and household tools. Includes utensil specifics (Dutch-oven lid timing), oven mode tips (conventional vs fan-forced), starter storage, aromas, and doneness cues.</p>
         <div class="chips" aria-label="Key features">
           <span class="chip">100% natural fermentation</span>
           <span class="chip">Beginner-friendly</span>
@@ -115,20 +111,12 @@ html = r"""
       </div>
       <figure class="hero-img">
         <img
-          class="swap"
-          alt="Holy rustic sourdough loaf with blistered crust"
-          loading="eager" decoding="async"
-          referrerpolicy="no-referrer"
-          data-srcs='[
-            "https://images.unsplash.com/photo-1525253013412-55c1a69a5738?q=80&w=1600&auto=format&fit=crop",
-            "https://images.unsplash.com/photo-1606819893249-a1a19b3485ff?q=80&w=1600&auto=format&fit=crop",
-            "https://images.unsplash.com/photo-1549931319-a545dcf3bc73?q=80&w=1600&auto=format&fit=crop"
-          ]'
-          src="https://images.unsplash.com/photo-1525253013412-55c1a69a5738?q=80&w=1600&auto=format&fit=crop"
-          srcset=""
-          sizes="(max-width: 980px) 100vw, 45vw"
+          class="watch"
+          src="https://images.unsplash.com/photo-1600326145359-9bb9282b3d48?q=80&w=1600&auto=format&fit=crop"
+          alt="Crusty rustic sourdough loaf on wooden board"
+          loading="eager" decoding="async" referrerpolicy="no-referrer"
         />
-        <figcaption>Holy rustic loaf • blistered ear & caramel crust • Unsplash</figcaption>
+        <figcaption>Freshly baked sourdough with blistered crust • Auto-fallback ready</figcaption>
       </figure>
     </section>
 
@@ -144,7 +132,7 @@ html = r"""
         <div>
           <a href="#dough">Dough: Mix → Bulk → Shape → Proof</a>
           <a href="#bake">Bake: Dutch Oven (Lid On → Off) & Oven Modes</a>
-          <a href="#gallery">Holy Rustic Gallery</a>
+          <a href="#gallery">Rustic Gallery</a>
           <a href="#refs">Trusted References</a>
         </div>
       </div>
@@ -246,50 +234,36 @@ html = r"""
     </section>
 
     <section id="gallery" class="card" aria-labelledby="gallery-heading">
-      <h2 id="gallery-heading">Holy Rustic Gallery</h2>
+      <h2 id="gallery-heading">Rustic Gallery</h2>
       <div class="gallery" role="list">
         <figure role="listitem">
-          <img class="swap" referrerpolicy="no-referrer" alt="Rustic sourdough crumb close-up"
+          <img class="watch" referrerpolicy="no-referrer" alt="Rustic crumb close-up"
                loading="lazy" decoding="async"
-               data-srcs='[
-                 "https://images.unsplash.com/photo-1519096845289-958e5f04ef1b?q=80&w=800&auto=format&fit=crop",
-                 "https://images.unsplash.com/photo-1600326145359-9bb9282b3d48?q=80&w=800&auto=format&fit=crop"
-               ]'
-               src="https://images.unsplash.com/photo-1519096845289-958e5f04ef1b?q=80&w=800&auto=format&fit=crop">
+               src="https://images.unsplash.com/photo-1549931319-a545dcf3bc73?q=80&w=800&auto=format&fit=crop">
         </figure>
         <figure role="listitem">
-          <img class="swap" referrerpolicy="no-referrer" alt="Round loaf with ornate scoring"
+          <img class="watch" referrerpolicy="no-referrer" alt="Decorative scoring"
                loading="lazy" decoding="async"
-               data-srcs='[
-                 "https://images.unsplash.com/photo-1555529771-35a38b5a3c92?q=80&w=800&auto=format&fit=crop",
-                 "https://images.unsplash.com/photo-1589367920969-ab8e050bbb04?q=80&w=800&auto=format&fit=crop"
-               ]'
-               src="https://images.unsplash.com/photo-1555529771-35a38b5a3c92?q=80&w=800&auto=format&fit=crop">
+               src="https://images.unsplash.com/photo-1589367920969-ab8e050bbb04?q=80&w=800&auto=format&fit=crop">
         </figure>
         <figure role="listitem">
-          <img class="swap" referrerpolicy="no-referrer" alt="Rustic loaf cooling on wire rack"
+          <img class="watch" referrerpolicy="no-referrer" alt="Loaf cooling on rack"
                loading="lazy" decoding="async"
-               data-srcs='[
-                 "https://images.unsplash.com/photo-1514516870926-2059896c1c78?q=80&w=800&auto=format&fit=crop",
-                 "https://images.unsplash.com/photo-1466637574441-749b8f19452f?q=80&w=800&auto=format&fit=crop"
-               ]'
                src="https://images.unsplash.com/photo-1514516870926-2059896c1c78?q=80&w=800&auto=format&fit=crop">
         </figure>
       </div>
-      <p class="credit">Photos via Unsplash. Images auto-swap on error without reloading the page.</p>
+      <p class="credit">If any image fails, this page will automatically substitute one of your three locally provided rustic bread photos (randomly chosen).</p>
     </section>
 
     <section id="refs" class="card">
       <h2>Trusted References (for further reading)</h2>
-      <p class="ref">These are widely respected, practical sources on natural sourdough fermentation and Dutch-oven baking:</p>
       <ul class="list-clean ref">
-        <li>King Arthur Baking — Sourdough Starter & Bread Guides: <a href="https://www.kingarthurbaking.com/learn/guides/sourdough" target="_blank" rel="noopener">kingarthurbaking.com</a></li>
-        <li>The Perfect Loaf — In-depth, measurement-first sourdough methods: <a href="https://www.theperfectloaf.com/" target="_blank" rel="noopener">theperfectloaf.com</a></li>
-        <li>Serious Eats — Science-minded bread technique & Dutch-oven baking: <a href="https://www.seriouseats.com/" target="_blank" rel="noopener">seriouseats.com</a></li>
-        <li>USDA Food Safety — Home fermentation hygiene basics: <a href="https://www.fsis.usda.gov/food-safety" target="_blank" rel="noopener">fsis.usda.gov</a></li>
-        <li>King Arthur — Water, flour types, and hydration primers: <a href="https://www.kingarthurbaking.com/blog" target="_blank" rel="noopener">KA Blog</a></li>
+        <li>King Arthur Baking — Sourdough Starter & Bread Guides</li>
+        <li>The Perfect Loaf — In-depth, measurement-first sourdough methods</li>
+        <li>Serious Eats — Science-minded bread technique & Dutch-oven baking</li>
+        <li>USDA Food Safety — Home fermentation hygiene basics</li>
       </ul>
-      <p class="note">This page avoids any commercial yeast or added laboratory cultures; fermentation relies on wild yeast and lactic acid bacteria naturally present in flour and environment.</p>
+      <p class="note">Fermentation relies on wild yeast and lactic acid bacteria naturally present in flour and the environment. No commercial yeast or added cultures.</p>
     </section>
 
     <section class="footer">
@@ -298,38 +272,20 @@ html = r"""
   </main>
 
   <script>
-    // Fallback image logic: cycles through data-srcs alternatives; uses inline SVG as last resort.
+    // Random fallback to local images if any <img> fails to load
     (function(){
-      const fallbackSVG = "data:image/svg+xml;utf8," +
-        "<svg xmlns='http://www.w3.org/2000/svg' width='800' height='600'>" +
-        "<defs><linearGradient id='g' x1='0' x2='1' y1='0' y2='1'>" +
-        "<stop stop-color='%230b0f14'/><stop offset='1' stop-color='%23121821'/></linearGradient></defs>" +
-        "<rect width='100%' height='100%' fill='url(%23g)'/>" +
-        "<g fill='%239fb1c2' font-family='Arial,sans-serif' font-size='24'>" +
-        "<text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle'>Rustic loaf image unavailable</text>" +
-        "</g></svg>";
-
-      function swapToNext(img){
-        try {
-          const list = JSON.parse(img.getAttribute('data-srcs') || "[]");
-          const current = img.getAttribute('src');
-          const idx = Math.max(0, list.indexOf(current));
-          const next = list[idx + 1];
-          if (next) {
-            img.removeAttribute('srcset');
-            img.src = next;
-          } else {
-            img.src = fallbackSVG;
-          }
-        } catch(e) {
-          img.src = fallbackSVG;
-        }
+      const fallbacks = [
+        "A_photograph_presents_a_close-up_of_three_rustic_s.png",
+        "A_photograph_presents_a_close-up_of_three_rustic_r.png",
+        "A_photograph_showcases_a_close-up_of_a_rustic_pist.png"
+      ];
+      function swapRandom(img){
+        const pick = fallbacks[Math.floor(Math.random() * fallbacks.length)];
+        img.removeAttribute('srcset');
+        img.src = pick;
       }
-
-      document.querySelectorAll('img.swap').forEach(function(img){
-        img.setAttribute('crossorigin','anonymous');
-        img.setAttribute('referrerpolicy','no-referrer');
-        img.addEventListener('error', function(){ swapToNext(img); });
+      document.querySelectorAll('img.watch').forEach(function(img){
+        img.addEventListener('error', function(){ swapRandom(img); }, { once: true });
       });
     })();
   </script>
@@ -337,6 +293,6 @@ html = r"""
 </html>
 """
 
-out = Path("/mnt/data/minimal-honest-sourdough-rustic.html")
+out = Path("/mnt/data/sourdough-rustic-random-fallbacks.html")
 out.write_text(html, encoding="utf-8")
 str(out)
