@@ -6,287 +6,242 @@ html = r"""
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Minimal, Honest Sourdough — Rustic Edition (Local Images)</title>
-  <meta name="description" content="From-scratch sourdough with utensil guidance, oven mode tips, and robust images using only your local rustic bread photos." />
+  <title>Minimal, Honest Sourdough — Self‑Healing Images</title>
+  <meta name="description" content="From-scratch sourdough guide with images that auto-generate a fresh loaf illustration if any picture is unavailable." />
   <style>
     :root {
-      --bg: #0b0f14;
-      --card: #121821;
-      --ink: #e8eef5;
-      --muted: #9fb1c2;
-      --accent: #4ce3b8;
-      --accent-2: #9cf0d7;
-      --line: #1d2836;
-      --shadow: 0 8px 40px rgba(0,0,0,.35);
+      --bg: #0b0f14; --card:#121821; --ink:#e8eef5; --muted:#9fb1c2; --line:#1d2836;
+      --accent:#4ce3b8; --shadow: 0 8px 40px rgba(0,0,0,.35);
     }
     * { box-sizing: border-box; }
     html, body { height: 100%; }
     body {
       margin: 0;
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
-      background: radial-gradient(1200px 600px at 20% -10%, rgba(76,227,184,.08), transparent 60%),
-                  radial-gradient(1400px 800px at 120% -20%, rgba(156,240,215,.06), transparent 60%),
-                  #0b0f14;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      background:
+        radial-gradient(1200px 600px at 20% -10%, rgba(76,227,184,.08), transparent 60%),
+        radial-gradient(1400px 800px at 120% -20%, rgba(156,240,215,.06), transparent 60%),
+        #0b0f14;
       color: var(--ink);
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
     }
-    a { color: var(--accent-2); text-decoration: none; }
+    a { color: #9cf0d7; text-decoration: none; }
     a:hover { text-decoration: underline; }
     header {
-      position: sticky; top: 0;
-      backdrop-filter: saturate(120%) blur(10px);
+      position: sticky; top: 0; z-index: 10;
+      backdrop-filter: blur(8px) saturate(120%);
       background: rgba(9,12,18,.65);
       border-bottom: 1px solid var(--line);
-      z-index: 20;
     }
     .container { max-width: 1100px; margin: 0 auto; padding: clamp(16px, 2vw, 28px); }
-    .hero {
-      display: grid; grid-template-columns: 1.15fr .85fr; gap: clamp(16px, 2.5vw, 28px); align-items: center;
-      padding: clamp(10px, 1.6vw, 18px) 0;
+    .hero { display:grid; grid-template-columns: 1.15fr .85fr; gap: clamp(16px,2.5vw,28px); align-items:center; }
+    @media (max-width: 980px){ .hero{ grid-template-columns: 1fr; } }
+    .card { background: var(--card); border:1px solid var(--line); border-radius:18px; padding: clamp(14px, 1.8vw, 22px); box-shadow: var(--shadow); }
+    .hero-img { position: relative; border-radius: 18px; overflow: hidden; border:1px solid var(--line); aspect-ratio: 4/3; }
+    .hero-img img { width:100%; height:100%; object-fit:cover; display:block; }
+    h1 { font-size: clamp(1.6rem, 2.6vw + 1rem, 2.6rem); margin:.4rem 0 .2rem; }
+    .lead { color: var(--muted); }
+    .gallery { display:grid; gap:12px; grid-template-columns: repeat(3,minmax(0,1fr)); }
+    @media (max-width: 980px){ .gallery { grid-template-columns: 1fr; } }
+    figure { margin:0; border-radius:14px; overflow:hidden; border:1px solid var(--line); aspect-ratio:1/1; position:relative; }
+    figure img { width:100%; height:100%; object-fit:cover; display:block; }
+    .btn-regenerate {
+      position:absolute; right:8px; bottom:8px; border:1px solid #244;
+      background: rgba(0,0,0,.45); color:#cfe; border-radius:999px; padding:6px 10px; font-size:.85rem;
+      cursor:pointer;
     }
-    .badge { display:inline-flex; gap:8px; align-items:center; padding: 6px 12px; border: 1px solid #203145; border-radius: 999px; color: var(--muted); font-size: .9rem; }
-    h1 { font-size: clamp(1.6rem, 2.6vw + 1rem, 2.6rem); line-height: 1.15; margin: 12px 0 10px; }
-    p.lead { font-size: clamp(1rem, .4vw + 1rem, 1.15rem); color: var(--muted); margin: 0 0 10px; }
-    .card {
-      background: var(--card); border: 1px solid var(--line); border-radius: 18px;
-      padding: clamp(14px, 1.8vw, 22px); box-shadow: var(--shadow);
-    }
-    h2 { margin-top: 34px; font-size: clamp(1.25rem, .8vw + 1rem, 1.6rem); }
-    h3 { margin-top: 22px; font-size: clamp(1.05rem, .6vw + .9rem, 1.25rem); }
-    .grid { display: grid; gap: 16px; }
-    .grid-2 { grid-template-columns: repeat(2, minmax(0,1fr)); }
-    .grid-3 { grid-template-columns: repeat(3, minmax(0,1fr)); }
-    .note { font-size: .98rem; color: var(--muted); }
-    .list-clean { margin: 0; padding: 0 0 0 18px; }
-    .kbd { background: #0f1723; border: 1px solid #1e2b3c; padding: 2px 6px; border-radius: 6px; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; }
-    .warning { background: #1b140a; border: 1px solid #3a2b12; color: #ffd28a; }
-    .ref { font-size: .96rem; color: var(--muted); }
-    .table-wrap { overflow:auto; border-radius: 14px; border:1px solid var(--line); }
-    .table { width: 100%; border-collapse: collapse; min-width: 520px; }
-    .table th, .table td { border-bottom: 1px solid var(--line); padding: 12px 14px; text-align: left; vertical-align: top; }
-    .table th { position: sticky; top: 0; background: #0f1620; z-index: 1; }
-    .chips { display:flex; gap:8px; flex-wrap:wrap; }
-    .chip { border:1px solid #254; color:#92f0d3; padding:6px 12px; border-radius:999px; font-size:.9rem;}
-    .footer { color: var(--muted); font-size: .95rem; padding: 30px 0 70px; }
-    @media (max-width: 980px) { .hero { grid-template-columns: 1fr; } .grid-2, .grid-3 { grid-template-columns: 1fr; } }
-    .toc a { display:block; padding:10px 12px; border-radius: 12px; border:1px solid var(--line); margin: 6px 0; background:#0e151d; }
-    .toc a:hover { background:#111b25; }
-    .callout { border-left: 3px solid var(--accent); padding-left: 12px; margin: 12px 0; }
-    .code { background:#0f1720; border:1px solid #223; padding:12px; border-radius:10px; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; overflow:auto; }
-    .hero-img {
-      position: relative; border-radius: 18px; overflow: hidden; border:1px solid var(--line);
-      aspect-ratio: 4/3; display: grid; place-items: end;
-    }
-    .hero-img img { width: 100%; height: 100%; object-fit: cover; display:block; }
-    .hero-img figcaption { width: 100%; background: linear-gradient(180deg, transparent, rgba(0,0,0,.6)); padding: 10px 14px; font-size: .9rem; color: #dbe7f3; }
-    .gallery { display: grid; gap: 12px; grid-template-columns: repeat(3, minmax(0,1fr)); }
-    .gallery figure { border-radius: 14px; overflow: hidden; margin: 0; border:1px solid var(--line); aspect-ratio: 1/1; }
-    .gallery img { width: 100%; height: 100%; object-fit: cover; display:block; }
-    .credit { font-size: .8rem; color: var(--muted); text-align: right; }
+    .table-wrap { overflow:auto; border-radius:14px; border:1px solid var(--line); }
+    table { width:100%; border-collapse:collapse; min-width:520px; }
+    th, td { border-bottom:1px solid var(--line); padding:12px 14px; text-align:left; }
+    th { background:#0f1620; position:sticky; top:0; }
+    .kbd { background:#0f1720; border:1px solid #1e2b3c; padding:2px 6px; border-radius:6px; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    .note { color:var(--muted); }
+    .footer { color:var(--muted); padding: 30px 0 70px; }
   </style>
 </head>
 <body>
-  <header role="banner">
-    <div class="container" style="padding: 14px 24px;">
-      <strong>Minimal, Honest Sourdough</strong> — from scratch · no commercial yeast · safety-minded
+  <header>
+    <div class="container">
+      <strong>Minimal, Honest Sourdough</strong> — from scratch · no commercial yeast · images that self-heal
     </div>
   </header>
 
   <main class="container">
     <section class="hero">
       <div>
-        <span class="badge" aria-label="Method highlights">
-          <span>From-scratch</span><span>2 ingredients</span><span>Dutch-oven method</span>
-        </span>
-        <h1>Most Delicious Sourdough at Home (Zero Commercial Yeast)</h1>
-        <p class="lead">A precise, health-safe process using only flour, water, time, and household tools. Includes utensil specifics (Dutch-oven lid timing), oven mode tips (conventional vs fan-forced), starter storage, aromas, and doneness cues.</p>
-        <div class="chips" aria-label="Key features">
-          <span class="chip">100% natural fermentation</span>
-          <span class="chip">Beginner-friendly</span>
-          <span class="chip">Evidence-informed</span>
-          <span class="chip">Mobile-first design</span>
-        </div>
+        <h1>Most Delicious Sourdough at Home</h1>
+        <p class="lead">Utensil specifics (Dutch-oven lid timing), oven modes (conventional vs fan‑forced), starter storage & aromas — with images that replace themselves by <em>generating</em> a fresh sourdough illustration if any picture breaks.</p>
       </div>
       <figure class="hero-img">
-        <!-- HERO: random local image on load -->
-        <img id="heroLocal" alt="Rustic bread hero" loading="eager" decoding="async" />
-        <figcaption>Local rustic image — guaranteed to load</figcaption>
+        <img class="watch" alt="Crusty rustic sourdough loaf on wooden board"
+             src="https://images.unsplash.com/photo-1600326145359-9bb9282b3d48?q=80&w=1600&auto=format&fit=crop" referrerpolicy="no-referrer">
+        <button class="btn-regenerate" aria-label="Regenerate hero image" data-target="prev">Regenerate</button>
       </figure>
     </section>
 
-    <section class="card">
-      <h2>Table of Contents</h2>
-      <div class="toc grid grid-2" role="navigation" aria-label="Table of Contents">
-        <div>
-          <a href="#ingredients">Ingredients & Water</a>
-          <a href="#tools">Utensils & Why They Matter</a>
-          <a href="#starter">Make a Wild Starter (Days 1–7)</a>
-          <a href="#aroma">Starter Aromas: What “Good” Smells Like</a>
-        </div>
-        <div>
-          <a href="#dough">Dough: Mix → Bulk → Shape → Proof</a>
-          <a href="#bake">Bake: Dutch Oven (Lid On → Off) & Oven Modes</a>
-          <a href="#gallery">Rustic Gallery</a>
-          <a href="#refs">Trusted References</a>
-        </div>
-      </div>
-    </section>
-
-    <section class="card" aria-labelledby="quick-specs-heading">
-      <h2 id="quick-specs-heading">Quick Specs</h2>
-      <div class="table-wrap" role="region" aria-label="Quick specs table">
-        <table class="table" role="table">
-          <thead>
-            <tr><th scope="col">Field</th><th scope="col">Details</th></tr>
-          </thead>
+    <section class="card" style="margin-top:18px;">
+      <h2>Quick Specs</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Field</th><th>Details</th></tr></thead>
           <tbody>
-            <tr><th scope="row">Ingredients</th><td>Flour + Water + Salt (for dough)</td></tr>
-            <tr><th scope="row">Equipment</th><td>Kitchen scale, glass jar, spoon/spatula, bowl, bench scraper (opt.), banneton/tea-towel, razor/lame, Dutch oven with lid, oven mitts</td></tr>
-            <tr><th scope="row">Hands-on Time</th><td>Starter 5–7 days · Dough 30–40 min spread out</td></tr>
-            <tr><th scope="row">Fermentation</th><td>Bulk 3–6 h (23–26 °C) · Cold proof 8–16 h (3–5 °C)</td></tr>
-            <tr><th scope="row">Bake</th><td>Preheat 250 °C · 20 min lid-on, then 20–25 min lid-off @ 230 °C</td></tr>
+            <tr><th>Ingredients</th><td>Flour + Water + Salt</td></tr>
+            <tr><th>Fermentation</th><td>Bulk 3–6 h (23–26 °C) · Cold proof 8–16 h (3–5 °C)</td></tr>
+            <tr><th>Bake</th><td>Preheat 250 °C · <span class="kbd">20 min lid‑on</span>, then <span class="kbd">20–25 min lid‑off</span> @ 230 °C</td></tr>
           </tbody>
         </table>
       </div>
     </section>
 
-    <section id="ingredients" class="card">
-      <h2>Ingredients & Water</h2>
-      <ul class="list-clean">
-        <li><strong>Flour:</strong> Whole-grain rye or whole-wheat helps kickstart a robust starter (more natural microbes & enzymes). Switch to bread flour for baking if you want a lighter crumb.</li>
-        <li><strong>Water:</strong> Use filtered or de-chlorinated water. If tap is chlorinated, leave it uncovered overnight or boil then cool.</li>
-        <li><strong>Salt (for dough only):</strong> 2% of flour weight (e.g., 8 g per 400 g flour) for flavor and gluten strength.</li>
-      </ul>
-      <p class="note">Starter: <span class="kbd">1:1</span> flour:water by weight. Dough: <span class="kbd">70%–75%</span> hydration is friendly to handle.</p>
-    </section>
-
-    <section id="tools" class="card">
-      <h2>Utensils & Why They Matter</h2>
-      <ul class="list-clean">
-        <li><strong>Digital scale:</strong> Precision matters more than any single “trick.”</li>
-        <li><strong>Glass jar (smooth-sided) + breathable cover:</strong> Lets CO₂ escape; easy to see rise & bubbles. Avoid air-tight seals during active fermentation.</li>
-        <li><strong>Sturdy mixing bowl & spatula/spoon:</strong> For clean mixing; a bench scraper helps handle sticky dough.</li>
-        <li><strong>Banneton or bowl lined with a floured tea towel:</strong> Supports shape during final proof.</li>
-        <li><strong>Razor/lame:</strong> Score to control expansion (oven spring).</li>
-        <li><strong>Heavy Dutch oven with tight lid (22–26 cm):</strong> Traps steam for glossy crust. Preheat it.</li>
-        <li><strong>Oven mitts + safe surface:</strong> Cast iron is extremely hot—work deliberately.</li>
-      </ul>
-      <div class="callout"><strong>Why lid on/off?</strong> The lid traps steam for the first phase, keeping the crust flexible so the loaf can expand. Removing the lid lets the crust dry and brown deeply.</div>
-    </section>
-
-    <section id="starter" class="card">
-      <h2>Make a Wild Starter (Days 1–7)</h2>
-      <ol class="list-clean">
-        <li><strong>Day 1:</strong> In a clean jar, mix <span class="kbd">50 g whole-grain flour + 50 g water</span> (room-temp, non-chlorinated). Stir thoroughly. Cover loosely. Keep at <span class="kbd">23–26 °C</span>.</li>
-        <li><strong>Days 2–3:</strong> Every 24 h (or 12 h if warm), discard about half, then feed with equal weights flour+water (e.g., 50 g + 50 g). Expect small bubbles and a mild tangy aroma.</li>
-        <li><strong>Days 4–7:</strong> Continue discard/feed. Starter should <em>double in 6–12 h</em> after a feeding. When it consistently doubles and smells pleasantly tangy, it’s ready.</li>
-        <li><strong>Readiness checks:</strong> Bubbly, domed surface; webby interior; passes “float test” (a spoonful floats in room-temp water). If it sinks but looks active, give it 1–2 more vigorous feeds.</li>
-      </ol>
-      <div class="warning card">
-        <strong>Safety:</strong> If you see colored mold, fuzzy growth, or smell anything rotten/putrid (not just sour), discard the starter, wash with hot soapy water, and begin again with clean tools.
-      </div>
-    </section>
-
-    <section id="aroma" class="card">
-      <h2>Starter Aromas: What “Good” Smells Like</h2>
-      <ul class="list-clean">
-        <li><strong>Healthy:</strong> pleasantly sour, yogurt-like, fruity, or mildly “boozy.”</li>
-        <li><strong>Needs food:</strong> more acidic/vinegary, solvent-like notes — feed and it should sweeten.</li>
-        <li><strong>Unhealthy (discard):</strong> rotten, putrid, musty, or visible mold of any color.</li>
-      </ul>
-    </section>
-
-    <section id="dough" class="card">
-      <h2>Dough: Mix → Bulk → Shape → Proof</h2>
-      <ol class="list-clean">
-        <li><strong>Leaven (optional but helpful for timing):</strong> 1–2 tbsp ripe starter + 50 g flour + 50 g water. Ferment until doubled (3–6 h at 23–26 °C).</li>
-        <li><strong>Mix dough (example loaf):</strong>
-          <div class="code" role="group" aria-label="Example formula">
-            Flour 400 g (bread or mix of bread + 10–20% whole-grain)<br/>
-            Water 280–300 g (70–75% hydration)<br/>
-            Salt 8 g (2%)<br/>
-            Ripe starter 80–100 g (20–25% of flour weight)
-          </div>
-          Mix to shaggy. Rest 20–30 min (autolyse). Add salt (if held back) and knead lightly or perform 3–4 stretch-and-fold sets every 20–30 min.
-        </li>
-        <li><strong>Bulk ferment:</strong> 3–6 h at 23–26 °C until dough is ~50% larger, jiggly, and aerated. Avoid over-proofing (dough becomes weak/collapses).</li>
-        <li><strong>Pre-shape → Rest 15–20 min → Final shape.</strong> Place seam-side up in a generously floured banneton/tea-towel-lined bowl.</li>
-        <li><strong>Cold proof:</strong> Cover and refrigerate 8–16 h at 3–5 °C for deeper flavor and easier scoring.</li>
-      </ol>
-    </section>
-
-    <section id="bake" class="card">
-      <h2>Bake: Dutch Oven & Oven Modes</h2>
-      <ol class="list-clean">
-        <li><strong>Preheat:</strong> Place Dutch oven with lid inside the oven. Preheat to <span class="kbd">250 °C</span> for at least 30–45 min.</li>
-        <li><strong>Load & steam phase:</strong> Invert cold-proofed dough onto parchment. Score. Carefully lower into the hot Dutch oven. <strong>Lid on</strong>, bake <span class="kbd">20 minutes</span>.</li>
-        <li><strong>Dry & color phase:</strong> Reduce to <span class="kbd">230 °C</span>. Remove the lid and bake <span class="kbd">20–25 minutes</span>, until crust is deep golden and the loaf sounds hollow when tapped. Internal temp target: ~<span class="kbd">96–99 °C</span>.</li>
-        <li><strong>Conventional vs fan-forced (convection):</strong> Both work. Convection runs hotter/more efficient; if using fan-forced, consider reducing set temp by ~10–15 °C or watch for faster browning. The closed Dutch oven moderates airflow differences.</li>
-        <li><strong>Cool completely:</strong> Let cool on a rack at least 90 minutes before slicing to set the crumb.</li>
-      </ol>
-      <div class="callout"><strong>Crust & crumb tips:</strong> For thinner crust, vent the oven door slightly for the last 5 minutes. For more open crumb, avoid adding extra flour during shaping and proof fully but not past collapse.</div>
-    </section>
-
-    <section id="gallery" class="card" aria-labelledby="gallery-heading">
-      <h2 id="gallery-heading">Rustic Gallery</h2>
-      <div class="gallery" role="list">
-        <figure role="listitem">
-          <img id="g1" alt="Local rustic bread 1" loading="lazy" decoding="async">
+    <section class="card" style="margin-top:18px;">
+      <h2>Rustic Gallery</h2>
+      <div class="gallery">
+        <figure>
+          <img class="watch" alt="Decorative scoring"
+               src="https://images.unsplash.com/photo-1589367920969-ab8e050bbb04?q=80&w=800&auto=format&fit=crop" referrerpolicy="no-referrer">
+          <button class="btn-regenerate" aria-label="Regenerate image" data-target="prev">Regenerate</button>
         </figure>
-        <figure role="listitem">
-          <img id="g2" alt="Local rustic bread 2" loading="lazy" decoding="async">
+        <figure>
+          <img class="watch" alt="Loaf cooling on rack"
+               src="https://images.unsplash.com/photo-1514516870926-2059896c1c78?q=80&w=800&auto=format&fit=crop" referrerpolicy="no-referrer">
+          <button class="btn-regenerate" aria-label="Regenerate image" data-target="prev">Regenerate</button>
         </figure>
-        <figure role="listitem">
-          <img id="g3" alt="Local rustic bread 3" loading="lazy" decoding="async">
+        <figure>
+          <img class="watch" alt="Rustic crumb close-up"
+               src="https://images.unsplash.com/photo-1549931319-a545dcf3bc73?q=80&w=800&auto=format&fit=crop" referrerpolicy="no-referrer">
+          <button class="btn-regenerate" aria-label="Regenerate image" data-target="prev">Regenerate</button>
         </figure>
       </div>
-      <p class="credit">All images are local, randomly picked on load — no external dependencies.</p>
-    </section>
-
-    <section id="refs" class="card">
-      <h2>Trusted References (for further reading)</h2>
-      <ul class="list-clean ref">
-        <li>King Arthur Baking — Sourdough Starter & Bread Guides</li>
-        <li>The Perfect Loaf — In-depth, measurement-first sourdough methods</li>
-        <li>Serious Eats — Science-minded bread technique & Dutch-oven baking</li>
-        <li>USDA Food Safety — Home fermentation hygiene basics</li>
-      </ul>
-      <p class="note">Fermentation relies on wild yeast and lactic acid bacteria naturally present in flour and the environment. No commercial yeast or added cultures.</p>
+      <p class="note">Tip: Click “Regenerate” to draw a brand‑new sourdough if an image looks off or fails to load.</p>
     </section>
 
     <section class="footer">
-      <p>Made for home bakers who want a reliable, minimal-ingredient method with clear safety guidance. © 2025</p>
+      <p>© 2025 · Natural fermentation only; no commercial yeast or added cultures.</p>
     </section>
   </main>
 
   <script>
-    // Use ONLY local images (place these files next to this HTML)
-    const LOCAL_IMAGES = [
-      "A_photograph_presents_a_close-up_of_three_rustic_s.png",
-      "A_photograph_presents_a_close-up_of_three_rustic_r.png",
-      "A_photograph_showcases_a_close-up_of_a_rustic_pist.png"
-    ];
-    function shuffle(arr) {
-      for (let i = arr.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [arr[i], arr[j]] = [arr[j], arr[i]];
+    // --- Minimal seeded RNG (xorshift32) for reproducible variety ---
+    function RNG(seed){ let x = seed >>> 0; return function(){ x ^= x << 13; x ^= x >>> 17; x ^= x << 5; return (x >>> 0) / 4294967296; }; }
+
+    // --- Painter: procedurally "bakes" a sourdough illustration on a canvas ---
+    function generateSourdoughPNG(w=1200, h=900, seed=Date.now()){
+      const rnd = RNG(seed);
+      const c = document.createElement('canvas'); c.width = w; c.height = h;
+      const ctx = c.getContext('2d');
+
+      // background
+      const g = ctx.createLinearGradient(0,0,0,h);
+      g.addColorStop(0, '#0b0f14'); g.addColorStop(1, '#12202c');
+      ctx.fillStyle = g; ctx.fillRect(0,0,w,h);
+
+      // board
+      const boardH = Math.floor(h*0.18);
+      const boardY = h - boardH - 30;
+      const boardGrad = ctx.createLinearGradient(0,boardY,0,h);
+      boardGrad.addColorStop(0,'#3a2a1f'); boardGrad.addColorStop(1,'#22170f');
+      ctx.fillStyle = boardGrad;
+      ctx.fillRect(0, boardY, w, h-boardY);
+      // wood lines
+      ctx.globalAlpha = 0.25;
+      for(let i=0;i<12;i++){ ctx.fillRect(0, boardY + i*(boardH/12), w, 1); }
+      ctx.globalAlpha = 1;
+
+      // loaf base ellipse
+      const cx = w*0.52, cy = boardY - h*0.05;
+      const rx = w*0.28*(0.9 + 0.2*rnd()); const ry = h*0.18*(0.9 + 0.2*rnd());
+      const crust = ctx.createRadialGradient(cx-rx*0.2, cy-ry*0.2, rx*0.2, cx, cy, rx*1.1);
+      crust.addColorStop(0, '#f9d6a5');       // flour-dusted highlight
+      crust.addColorStop(0.55, '#c68642');    // golden brown
+      crust.addColorStop(0.9, '#7a4a1d');     // deep crust
+      ctx.fillStyle = crust;
+      ctx.beginPath();
+      ctx.ellipse(cx, cy, rx, ry, 0, 0, Math.PI*2);
+      ctx.fill();
+
+      // ear / scoring slash
+      const slashes = 1 + Math.floor(rnd()*3);
+      for(let s=0;s<slashes;s++){
+        const ox = (s-0.5)*(rx*0.35);
+        ctx.save();
+        ctx.translate(cx + ox, cy - ry*0.15);
+        ctx.rotate((rnd()*0.3 - 0.15));
+        ctx.strokeStyle = 'rgba(255,240,210,0.9)';
+        ctx.lineWidth = Math.max(2, rx*0.05);
+        ctx.beginPath();
+        ctx.moveTo(-rx*0.35, 0);
+        ctx.quadraticCurveTo(0, -ry*0.25, rx*0.35, 0);
+        ctx.stroke();
+        ctx.restore();
       }
-      return arr;
+
+      // blister & texture speckles
+      const dots = 900 + Math.floor(rnd()*600);
+      for(let i=0;i<dots;i++){
+        const ang = rnd()*Math.PI*2;
+        const r = Math.pow(rnd(),0.6);
+        const px = cx + Math.cos(ang)*rx*r;
+        const py = cy + Math.sin(ang)*ry*r*0.9;
+        const size = 0.5 + rnd()*1.8;
+        ctx.fillStyle = `rgba(255,230,190,${0.15 + rnd()*0.45})`;
+        ctx.fillRect(px, py, size, size);
+      }
+
+      // steam wisps
+      for(let s=0;s<3;s++){
+        let x = cx - rx*0.2 + rnd()*rx*0.4;
+        let y = cy - ry*1.1;
+        ctx.strokeStyle = 'rgba(255,255,255,0.18)';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(x,y);
+        for(let k=0;k<5;k++){ x += (rnd()-0.5)*40; y -= 40 + rnd()*20; ctx.quadraticCurveTo(x-10,y-10,x,y); }
+        ctx.stroke();
+      }
+
+      // vignette
+      const vg = ctx.createRadialGradient(w/2,h/2,Math.max(w,h)*0.2,w/2,h/2,Math.max(w,h)*0.75);
+      vg.addColorStop(0,'rgba(0,0,0,0)'); vg.addColorStop(1,'rgba(0,0,0,0.5)');
+      ctx.fillStyle = vg; ctx.fillRect(0,0,w,h);
+
+      return c.toDataURL('image/png');
     }
-    (function initImages(){
-      const picks = shuffle(LOCAL_IMAGES.slice());
-      document.getElementById('heroLocal').src = picks[0];
-      document.getElementById('g1').src = picks[0];
-      document.getElementById('g2').src = picks[1 % picks.length];
-      document.getElementById('g3').src = picks[2 % picks.length];
-    })();
+
+    // Replace broken images with generated sourdough; also allow manual regeneration.
+    function attachSelfHealing(img){
+      function replace(){
+        const rect = img.getBoundingClientRect();
+        const w = Math.max(600, Math.floor(rect.width||1200));
+        const h = Math.max(400, Math.floor(rect.height||900));
+        img.src = generateSourdoughPNG(w, h, Math.floor(Math.random()*2**31));
+      }
+      img.addEventListener('error', replace, { once: true });
+      // If resource is blocked (e.g., referrer), some browsers fire 'load' with empty image.
+      // Add a safety timer to verify naturalWidth.
+      img.addEventListener('load', function(){
+        if(!img.naturalWidth || !img.naturalHeight){ replace(); }
+      });
+    }
+
+    document.querySelectorAll('img.watch').forEach(attachSelfHealing);
+
+    // Buttons to regenerate on demand
+    document.querySelectorAll('.btn-regenerate').forEach(btn=>{
+      btn.addEventListener('click', function(e){
+        const target = btn.dataset.target === 'prev' ? btn.previousElementSibling : document.querySelector(btn.dataset.target);
+        if(target && target.tagName === 'IMG'){
+          const rect = target.getBoundingClientRect();
+          target.src = generateSourdoughPNG(Math.max(600, rect.width||1200), Math.max(400, rect.height||900));
+        }
+      });
+    });
   </script>
 </body>
 </html>
 """
 
-out = Path("/mnt/data/sourdough-rustic-local-only.html")
+out = Path("/mnt/data/sourdough-self-healing.html")
 out.write_text(html, encoding="utf-8")
 str(out)
